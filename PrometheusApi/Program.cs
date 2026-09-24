@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // Conexão com o banco de dados
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=prometheus.db"));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("SupabaseConnection")));
 
 var app = builder.Build();
 
